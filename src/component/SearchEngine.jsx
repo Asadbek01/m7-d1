@@ -9,14 +9,14 @@ class SearchEngine extends Component {
      query: ""
 
     }
-    url = 'https://strive-jobs-api.herokuapp.com/jobs?search'
+    url = 'https://strive-jobs-api.herokuapp.com/jobs?search='
  changeValue =(e)=>{
      this.setState({query : e.target.value})
  }
      GetWithQuery = async (e)=>{
      e.preventDefault()
      try {
-      const response = await fetch(this.url + this.state.query + '&limit=10')
+      const response = await fetch(this.url + this.state.query + '&limit=5')
       if(response.ok){
 
           const {data} = await response.json()
@@ -26,7 +26,6 @@ class SearchEngine extends Component {
       }else{
           alert('Error while fetching')
       }
-      
   } catch (error) {
       
   }

@@ -11,6 +11,7 @@ const RetrieveJobs = ({data}) =>{
             <Link to={`/${data.company_name}`}>{data.company_name}</Link>
         </Col>
              <Col xs={9}>
+               
              <a href={data.url} target='_blank' rel="noreferrer">{data.title}</a>
              </Col>
     </Row>
