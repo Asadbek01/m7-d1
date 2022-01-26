@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Container, Row, Form, Col} from "react-bootstrap"
+import { Link } from "react-router-dom"
 import RetrieveJobs from './RetrieveJobs';
 import uniqid from "uniqid"
 
@@ -16,7 +17,7 @@ class SearchEngine extends Component {
      GetWithQuery = async (e)=>{
      e.preventDefault()
      try {
-      const response = await fetch(this.url + this.state.query + '&limit=5')
+      const response = await fetch(this.url + this.state.query + '&limit=10')
       if(response.ok){
 
           const {data} = await response.json()
@@ -37,6 +38,8 @@ class SearchEngine extends Component {
                     <Row>
                         <Col xl={8} className='mx-auto my-5'>
                             <h1>Remote Jobs</h1>
+                            <Link to="/favourites" className='btn btn-warning'>View Favourites</Link>
+                            <hr className='bolder'/>
                         </Col>
 
                         <Col xl={8} className='mx-auto'>
