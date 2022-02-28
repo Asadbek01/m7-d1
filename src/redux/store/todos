@@ -1,8 +1,0 @@
-create a strore folder
-
-
-# import the {createStore} from redux
-#create ruducer file and import it inside strore
-# try to create Initial state 
-
-cerate function and return  inside createStore(Initial state, Reducer and window._REDUX_DEVTOOLS_EXTENSION_ && window._REDUX_DEVTOOLS_EXTENSION_() )
