@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-function JobResult({ data, favourites, addToFavourites, removeFromFavourites }) {
+function AllJobs({ data, jobSelected, changeJobs , favourites, addToFavourites, removeFromFavourites }) {
 
     const isFav = favourites.includes(data.company_name)
     console.log(isFav, favourites)
@@ -25,7 +25,10 @@ function JobResult({ data, favourites, addToFavourites, removeFromFavourites }) 
 
     return (
     <>                   
- <Card className='mt-3'>
+ <Card className={ jobSelected?.id=== data.id? "border-thick mt-3" :'mt-3'}
+  onClick={() => changeJobs(data)}
+  style={{curspr: "pointer"}}
+ >
   <Card.Body>
     <Card.Title></Card.Title>
     <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
@@ -48,4 +51,4 @@ function JobResult({ data, favourites, addToFavourites, removeFromFavourites }) 
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobResult)
+export default connect(mapStateToProps, mapDispatchToProps)(AllJobs)
