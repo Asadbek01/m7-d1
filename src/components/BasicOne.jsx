@@ -7,6 +7,7 @@ import AllJobs from './AllJobs'
 
 export default class BasicOne extends React.Component {
 
+
     state = {
         query: '',
         jobs: [],
@@ -68,14 +69,15 @@ export default class BasicOne extends React.Component {
       <Form className="d-flex">
         <FormControl
           type="search"
+          value={this.state.query}
           placeholder="Search"
+          onChange={this.handleChange}
           className="me-2"
           aria-label="Search"
         />
         <Button variant="outline-success"
         className='mx-2'
-         type="search" value={this.state.query}
-          onChange={this.handleChange}
+         type="search" 
           placeholder="type and press Enter" 
          onClick={this.handleSubmit}
         >Search</Button>
