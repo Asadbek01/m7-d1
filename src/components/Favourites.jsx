@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Jumbotron,  } from 'react-bootstrap'
 import { Trash } from 'react-bootstrap-icons'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { removeFromFav } from '../store/actions'
+import { removeFromFav } from '../redux/actions'
 
 const mapDispatchToProps = (dispatch) => ({
     removeFromFav: (f) => { dispatch(removeFromFav(f)) }
@@ -39,7 +39,7 @@ class Favourites extends React.Component {
                                                 Some quick example text to build on the card title and make up the bulk of
                                                 the card's content.
                                             </Card.Text>
-                                            <Trash color='red' size={20} className='mx-2' onClick={() => this.props.removeFromFav(f)} />
+                                            <Trash color='red' size={20} className='mx-2' onClick={() => this.props.removeFromFav(f)} style={{cursor: "pointer"}} />
                                             <span className="h5" >{f}</span>
                                         </Card.Body>
                                     </Card>

@@ -4,17 +4,32 @@ import uniqid from 'uniqid'
 import { Link } from 'react-router-dom'
 import JobDetail from './JobDetail'
 import AllJobs from './AllJobs'
+import { connect } from 'react-redux'
+import { getJobs } from '../redux/actions'
 
-export default class BasicOne extends React.Component {
+
+const mapStateToProps = state => ({
+  alljobs: state.jobs.jobs
+
+})
+// console.log(this.props.alljobs)
+
+const mapDispatchToProps = (dispatch)=>({
+  getJobs: (endpoint, query) =>{
+    dispatch(getJobs(endpoint,query))
+  }
+})
+
+
+ class BasicOne extends React.Component {
 
 
     state = {
         query: '',
-        jobs: [],
         jobSelected: null
     }
 
-    baseEndpoint = 'https://strive-jobs-api.herokuapp.com/jobs?search=' 
+    // endpoint = 'https://strive-jobs-api.herokuapp.com/jobs?search=' 
 
 
     handleChange = (e) => {
@@ -23,18 +38,12 @@ export default class BasicOne extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault()
-
-        const response = await fetch(this.baseEndpoint + this.state.query +  '&limit=20')
-        if (!response.ok) {
-            alert('Error fetching results')
-            return
-        }
-
-        const { data } = await response.json()
-
-        this.setState({ jobs: data })
-
+        this.props.getJobs('https://strive-jobs-api.herokuapp.com/jobs?search=', this.state.query)
     }
+    // componentDidMount=async()=>{
+    //   this.props.getJobs()
+
+    // }
     changeJobs = (job) => this.setState({jobSelected : job})
 
     render() {
@@ -96,7 +105,7 @@ export default class BasicOne extends React.Component {
                     </Col>
                     <Col xs={4} className=' mb-5'>
                         {
-                            this.state.jobs.map(jobData => <AllJobs key={uniqid()} data={jobData}
+                            this.props.alljobs.map(jobData => <AllJobs key={uniqid()} data={jobData}
                             changeJobs={this.changeJobs}
                          jobSelected={this.state.jobSelected}
                             />)
@@ -112,3 +121,4 @@ export default class BasicOne extends React.Component {
         )
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps )(BasicOne)

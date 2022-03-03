@@ -1,6 +1,11 @@
 import { Component } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { connect } from "react-redux";
+const mapStateToProps = (state) =>({
+isLoading: state.jobs.isLoading,
+isError:  state.jobs.isError
+})
 
 class JobDetail extends Component {
   state = {
@@ -41,7 +46,14 @@ class JobDetail extends Component {
         ) : (
           <Row>
             <Col sm={12}>
+            {this.props.isLoading ? ( 
+              
+              <h3>Loading... <Spinner variant='dark' animation='border' /></h3> 
+            ) :  this.props.isError ? (
+              <Alert variant='danger'>Fetch error, try again</Alert>
+            ) :
               <h3> Select a Job!</h3>
+            }
             </Col>
           </Row>
           )}
@@ -50,4 +62,4 @@ class JobDetail extends Component {
   }
 }
 
-export default JobDetail;
+export default connect(mapStateToProps)(JobDetail);

@@ -4,7 +4,7 @@ import MainSearch from "./components/BasicOne";
 import CompanySearchResults from "./components/CompanySearchResults";
 import Favourites from "./components/Favourites";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import store from "./store";
+import store from "./redux/store";
 import { Provider } from "react-redux";
 import { Container } from "react-bootstrap";
 import BasicOne from "./components/BasicOne";
