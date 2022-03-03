@@ -3,20 +3,17 @@ import { initialState } from "../store"
 
 export default function favouriteReducer(state = initialState.favourites, action) {
 
-    console.log(action, state)
 
-    const { type, payload } = action
-
-    switch(type) {
+    switch(action.type) {
         case ADD_TO_FAV: 
             return {
                 ...state,
-                favourites: [...state.favourites, payload]
+                likes: [...state.likes, action.payload]
             }
         case REMOVE_FROM_FAV:
             return {
                 ...state,
-                favourites: state.favourites.filter(company => company !== payload)
+                likes: state.likes.filter(company => company !== action.payload)
             }
         default: 
             return state

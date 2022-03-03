@@ -3,8 +3,9 @@ import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 const mapStateToProps = (state) =>({
-isLoading: state.jobs.isLoading,
-isError:  state.jobs.isError
+  
+isLoading: state.elements.isLoading,
+isError:  state.elements.isError
 })
 
 class JobDetail extends Component {

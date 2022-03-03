@@ -5,8 +5,9 @@ import { Heart, HeartFill } from 'react-bootstrap-icons'
 import { addToFav, removeFromFav } from '../redux/actions'
 import { connect } from 'react-redux'
 
-const mapStateToProps = s => s
-
+const mapStateToProps = state => ({
+  favourites: state.favourites.likes
+}) 
 const mapDispatchToProps = (dispatch) => ({
   addToFavourites: (company) => dispatch(addToFav(company)),
   removeFromFavourites: (company) => dispatch(removeFromFav(company))
@@ -16,7 +17,6 @@ const mapDispatchToProps = (dispatch) => ({
 function AllJobs({ data, jobSelected, changeJobs, favourites, addToFavourites, removeFromFavourites }) {
 
   const isFav = favourites.includes(data.company_name)
-  console.log(isFav, favourites)
   
   const toggleFavourite = () => {
     isFav

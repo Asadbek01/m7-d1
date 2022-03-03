@@ -4,7 +4,9 @@ import favouriteReducer from '../reducers/Favourites'
 import FetchedJobsReducer from '../reducers/FetchedJobs'
 
 export const initialState = {
-    favourites: [],
+    favourites: {
+        likes:[]
+    },
 
     elements : {
      jobs:[],
@@ -15,7 +17,7 @@ export const initialState = {
 
 const combinedReducers = combineReducers({
     favourites: favouriteReducer,
-    jobs: FetchedJobsReducer
+    elements: FetchedJobsReducer
 }) 
 
 const composeFunction =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -9,14 +9,14 @@ import { getJobs } from '../redux/actions'
 
 
 const mapStateToProps = state => ({
-  alljobs: state.jobs.jobs
+  alljobs: state.elements.jobs
 
 })
 // console.log(this.props.alljobs)
 
 const mapDispatchToProps = (dispatch)=>({
-  getJobs: (endpoint, query) =>{
-    dispatch(getJobs(endpoint,query))
+  getJobs: (query) =>{
+    dispatch(getJobs(query))
   }
 })
 
@@ -38,12 +38,12 @@ const mapDispatchToProps = (dispatch)=>({
 
     handleSubmit = async (e) => {
         e.preventDefault()
-        this.props.getJobs('https://strive-jobs-api.herokuapp.com/jobs?search=', this.state.query)
+        this.props.getJobs(this.state.query)
     }
-    // componentDidMount=async()=>{
-    //   this.props.getJobs()
+    componentDidMount=async()=>{
+      this.props.getJobs()
 
-    // }
+    }
     changeJobs = (job) => this.setState({jobSelected : job})
 
     render() {

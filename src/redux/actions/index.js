@@ -19,7 +19,8 @@ export const getJobs = (query) => {
   return (dispatch) => {
       setTimeout(async()=>{
           try {
-            const response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search=' +{query}  +  '&limit=20')
+              let serachQuery = query? query : ""
+            const response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search='+ serachQuery  +  '&limit=20')
            if(response.ok){
             const { data } = await response.json()
             dispatch({
