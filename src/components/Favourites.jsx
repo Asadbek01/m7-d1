@@ -29,7 +29,7 @@ class Favourites extends React.Component {
 
 
                         {
-                            this.props.favourites.map(f => (
+                            this.props.favourites.likes.map(f => (
                                 <div>
                                     <Card>
                                         <Card.Body>
