@@ -3,26 +3,22 @@ import { Row, Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Heart, HeartFill } from 'react-bootstrap-icons'
 import { addToFav, removeFromFav } from '../redux/actions'
-import { connect } from 'react-redux'
-
-const mapStateToProps = state => ({
-  favourites: state.favourites.likes
-}) 
-const mapDispatchToProps = (dispatch) => ({
-  addToFavourites: (company) => dispatch(addToFav(company)),
-  removeFromFavourites: (company) => dispatch(removeFromFav(company))
-})
+import { useDispatch, useSelector } from 'react-redux'
 
 
-function AllJobs({ data, jobSelected, changeJobs, favourites, addToFavourites, removeFromFavourites }) {
+function AllJobs({ data, jobSelected, changeJobs, }) {
+  
+  const favourites = useSelector(state => state.favourites.likes)
+  const dispatch = useDispatch()
 
   const isFav = favourites.includes(data.company_name)
   
   const toggleFavourite = () => {
     isFav
-      ? removeFromFavourites(data.company_name)
-      : addToFavourites(data.company_name)
+      ? dispatch(removeFromFav(data.company_name))
+      :  dispatch(addToFav(data.company_name))
   }
+  
 
   return (
     <>
@@ -52,4 +48,4 @@ function AllJobs({ data, jobSelected, changeJobs, favourites, addToFavourites, r
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllJobs)
+export default AllJobs

@@ -1,52 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Form, Button, Navbar, Nav, NavDropdown, FormControl } from 'react-bootstrap'
 import uniqid from 'uniqid'
 import { Link } from 'react-router-dom'
 import JobDetail from './JobDetail'
 import AllJobs from './AllJobs'
-import { connect } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import { getJobs } from '../redux/actions'
 
 
-const mapStateToProps = state => ({
-  alljobs: state.elements.jobs
+// const mapStateToProps = state => ({
+//   alljobs: state.elements.jobs
 
-})
+// })
 // console.log(this.props.alljobs)
 
-const mapDispatchToProps = (dispatch)=>({
-  getJobs: (query) =>{
-    dispatch(getJobs(query))
-  }
-})
+// const mapDispatchToProps = (dispatch)=>({
+//   getJobs: (query) =>{
+    
+//   }
+// })
 
 
- class BasicOne extends React.Component {
+ const  BasicOne = () => {
+  const alljobs = useSelector(state=> state.elements.jobs)
+  const dispatch = useDispatch()
+
+  const [ query, setQuery] = useState('')
+  const [ jobSelected, setJobSelected] = useState(null)
 
 
-    state = {
-        query: '',
-        jobSelected: null
-    }
 
-    // endpoint = 'https://strive-jobs-api.herokuapp.com/jobs?search=' 
-
-
-    handleChange = (e) => {
-        this.setState({ query: e.target.value })
-    }
-
-    handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        this.props.getJobs(this.state.query)
+        dispatch(getJobs(query))
     }
-    componentDidMount=async()=>{
-      this.props.getJobs()
+   useEffect(()=> {
 
-    }
-    changeJobs = (job) => this.setState({jobSelected : job})
+    dispatch(getJobs())
+   },
+    [])
+   const changeJobs = (job) => setJobSelected(job)
 
-    render() {
+    
         return (
                 <Row>
                     <Col xs={12} className='mx-auto my-3'>
@@ -78,17 +73,17 @@ const mapDispatchToProps = (dispatch)=>({
       <Form className="d-flex">
         <FormControl
           type="search"
-          value={this.state.query}
+          value={query}
           placeholder="Search"
-          onChange={this.handleChange}
           className="me-2"
           aria-label="Search"
+          onChange={(e) => setQuery(e.target.value)}
         />
         <Button variant="outline-success"
         className='mx-2'
          type="search" 
           placeholder="type and press Enter" 
-         onClick={this.handleSubmit}
+         onClick={handleSubmit}
         >Search</Button>
           <Button variant="outline-danger">
           <Link className='btn' to="/favourites"> 
@@ -105,20 +100,20 @@ const mapDispatchToProps = (dispatch)=>({
                     </Col>
                     <Col xs={4} className=' mb-5'>
                         {
-                            this.props.alljobs.map(jobData => <AllJobs key={uniqid()} data={jobData}
-                            changeJobs={this.changeJobs}
-                         jobSelected={this.state.jobSelected}
+                            alljobs.map(jobData => <AllJobs key={uniqid()} data={jobData}
+                            changeJobs={changeJobs}
+                         jobSelected={jobSelected}
                             />)
                             
                         }
                     </Col>
                     <Col md={8}>
                     <JobDetail
-                    jobSelected={this.state.jobSelected} />
+                    jobSelected={jobSelected} />
                     </Col>
                     </Row>
    
         )
     }
-}
-export default connect(mapStateToProps, mapDispatchToProps )(BasicOne)
+
+export default BasicOne
